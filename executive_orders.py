@@ -18,8 +18,7 @@ errorurl = "\n      https://www.federalregister.gov/api/v1/articles/"
 while rownumber < rows :
 	
 	executive_order_number = parsed['results'][rownumber]['executive_order_number']
-
-	rownumber = rownumber + 1
+	
 	if executive_order_number != 0 :
 		wikidataurl = 'http://www.wikidata.org/w/api.php?language=en&format=json&action=wbsearchentities&search=Executive%20Order%20' + str(executive_order_number)
 		wikidataparsed = json.loads(requests.get(wikidataurl).text)
@@ -33,7 +32,9 @@ while rownumber < rows :
 		errornumber = errornumber + 1
 		errorlist = errorlist + "\n    " + parsed['results'][rownumber]['title']
 		errorurl = errorurl + parsed['results'][rownumber]['document_number'] + ","
-		
+	
+	rownumber = rownumber + 1
+
 print "\nFound: " + str(foundnumber)
 print "Missing: " + str(missingnumber)
 print "Errors: " + str(errornumber)
